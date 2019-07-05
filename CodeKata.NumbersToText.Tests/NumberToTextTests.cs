@@ -5,6 +5,12 @@ namespace CodeKata.NumbersToText.Tests
     public class NumberToTextTests
     {
         [Fact]
+        public void InputSingleNumberZero_CorrectOutput()
+        {
+            Assert.Equal("null", NumberUtil.ToText(0));
+        }
+
+        [Fact]
         public void InputSingleNumberOne_CorrectOutput()
         {
             Assert.Equal("eins", NumberUtil.ToText(1));
