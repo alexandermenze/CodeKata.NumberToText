@@ -126,14 +126,17 @@ namespace CodeKata.NumbersToText
 
         private static IEnumerable<int> ToNormifiedNumbers(int number)
         {
+            var returnZero = true;
+
             while (number >= 10)
             {
+                returnZero = false;
                 var normified = NormifyNumber(number);
                 number -= normified;
                 yield return normified;
             }
 
-            if (number != 0)
+            if (number != 0 || returnZero)
                 yield return number;
         }
 
