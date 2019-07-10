@@ -147,5 +147,11 @@ namespace CodeKata.NumbersToText.Tests
         {
             Assert.Equal("einhundertundelf", NumberUtil.ToText(111));
         }
+
+        [Fact]
+        public void InputTwoHundredAndEleven_CorrectOutput()
+        {
+            Assert.Equal("zweihundertundelf", NumberUtil.ToText(211));
+        }
     }
 }
