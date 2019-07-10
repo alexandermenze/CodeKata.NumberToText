@@ -37,21 +37,26 @@ namespace CodeKata.NumbersToText
 
         };
 
-        private static readonly Dictionary<string, string> fixTable = new Dictionary<string, string>
-        {
-            { "einsundzehn", "elf" },
-            { "zweiundzehn", "zwölf" },
-            { "dreiundzehn", "dreizehn" },
-            { "vierundzehn", "vierzehn" },
-            { "fünfundzehn", "fünfzehn" },
-            { "sechsundzehn", "sechzehn" },
-            { "siebenundzehn", "siebzehn" },
-            { "achtundzehn", "achtzehn" },
-            { "neunundzehn", "neunzehn" }
-        };
-
         private static readonly Dictionary<string, Func<string, string>> regexFixTable = new Dictionary<string, Func<string, string>>()
         {
+            { "^einsundzehn$", s => Regex.Replace(s, "^einsundzehn$", "elf") },
+            { "^zweiundzehn$", s => Regex.Replace(s, "^zweiundzehn$", "zwölf") },
+            { "^dreiundzehn$", s => Regex.Replace(s, "^dreiundzehn$", "dreizehn") },
+            { "^vierundzehn$", s => Regex.Replace(s, "^vierundzehn$", "vierzehn") },
+            { "^fünfundzehn$", s => Regex.Replace(s, "^fünfundzehn$", "fünfzehn") },
+            { "^sechsundzehn$", s => Regex.Replace(s, "^sechsundzehn$", "sechzehn") },
+            { "^siebenundzehn$", s => Regex.Replace(s, "^siebenundzehn$", "siebzehn") },
+            { "^achtundzehn$", s => Regex.Replace(s, "^achtundzehn$", "achtzehn") },
+            { "^neunundzehn$", s => Regex.Replace(s, "^neunundzehn$", "neunzehn") },
+            { "einsundzehn$", s => Regex.Replace(s, "einsundzehn$", "undelf") },
+            { "zweiundzehn$", s => Regex.Replace(s, "zweiundzehn$", "undzwölf") },
+            { "dreiundzehn$", s => Regex.Replace(s, "dreiundzehn$", "unddreizehn") },
+            { "vierundzehn$", s => Regex.Replace(s, "vierundzehn$", "undvierzehn") },
+            { "fünfundzehn$", s => Regex.Replace(s, "fünfundzehn$", "undfünfzehn") },
+            { "sechsundzehn$", s => Regex.Replace(s, "sechsundzehn$", "undsechzehn") },
+            { "siebenundzehn$", s => Regex.Replace(s, "siebenundzehn$", "undsiebzehn") },
+            { "achtundzehn$", s => Regex.Replace(s, "achtundzehn$", "undachtzehn") },
+            { "neunundzehn$", s => Regex.Replace(s, "neunundzehn$", "undneunzehn") },
             {
                 "eins(?!$)",
                 s => Regex.Replace(s, "eins(?!$)", "ein")
@@ -89,15 +94,17 @@ namespace CodeKata.NumbersToText
 
         private static string ProcessFixes(string s)
         {
-            foreach (var entry in fixTable)
-            {
-                s = s.Replace(entry.Key, entry.Value);
-            }
+            var fixTableAsList = regexFixTable.ToList();
 
-            foreach (var entry in regexFixTable)
+            for (var i = 0; i < fixTableAsList.Count; i++)
             {
+                var entry = fixTableAsList[i];
+
                 if (Regex.IsMatch(s, entry.Key))
+                {
                     s = entry.Value(s);
+                    i = 0;
+                }
             }
 
             return s;
