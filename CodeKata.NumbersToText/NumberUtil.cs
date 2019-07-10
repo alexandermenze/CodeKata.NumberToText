@@ -81,7 +81,7 @@ namespace CodeKata.NumbersToText
                 var realUnitPlaces = asStringList[asStringList.Count - 2];
                 var realTens = asStringList[asStringList.Count - 1];
 
-                if (realTens.Length == 1)
+                if (realTens.Length == 1 && realUnitPlaces.Length == 2)
                 {
                     asStringList[asStringList.Count - 2] = realTens;
                     asStringList[asStringList.Count - 1] = realUnitPlaces;
